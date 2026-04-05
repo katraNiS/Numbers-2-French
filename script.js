@@ -114,6 +114,7 @@ function randomNumberGenerator(){
     const range = maxNum - minNum
     randomNum = Math.floor(Math.random() * range) + minNum
     document.getElementById("number-display").textContent = randomNum
+    document.getElementById("french-display").textContent = ""
     }
 }
 
