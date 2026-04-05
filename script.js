@@ -32,6 +32,10 @@ function numberToFrench(number){
             const output = tens[first_digit - 2]
             return output
         }
+        else if(second_digit == 1){
+            const output = tens[first_digit -2] + "-" + "et" + "-" + "un"
+            return output
+        }
         else{
             const output = tens[first_digit - 2] + "-" + units[second_digit]
             return output 
@@ -40,10 +44,17 @@ function numberToFrench(number){
 
     // for numbers between 70 and 79, they are formed like 60 + 10, 60 + 11, 60 + 12, etc. 
     else if (number >= 70 && number < 80){
-        const digit = number - 60
-        const recursionFrenchNum = numberToFrench(digit) // recoursion 
-        const output = tens[4] + "-" + recursionFrenchNum
-        return output
+        const first_digit = number - 60
+        const second_digit = number % 10
+        if(second_digit == 1){
+            const output = tens[4] + "-" + "et" + "-" + "onze"
+            return output
+        }
+        else{
+            const recursionFrenchNum = numberToFrench(first_digit) // recoursion 
+            const output = tens[4] + "-" + recursionFrenchNum
+            return output
+        }
     }
 
     // for numbers between 80 and 99, they are formed like 4 x 20, 4 x 20 + 1, 4 x 20 + 2, etc.
