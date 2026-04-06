@@ -32,6 +32,7 @@ body {
     box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.3),
         0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    min-height: 580px;
 }
 
 h1 {
@@ -99,7 +100,7 @@ h1 {
 }
 
 /* Display Areas */
-#number-display {
+#top-display {
     font-family: 'Fredoka', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
@@ -107,14 +108,16 @@ h1 {
     padding: 24px;
     margin-bottom: 8px;
     color: #fff;
-    min-height: 100px;
+    height: 140px;
+    overflow-wrap: break-word;
+    font-size: 2.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     text-shadow: 0 2px 20px rgba(255, 107, 107, 0.3);
 }
 
-#french-display {
+#bottom-display {
     font-family: 'Fredoka', sans-serif;
     font-size: 1.6rem;
     font-weight: 500;
@@ -129,6 +132,8 @@ h1 {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     text-shadow: 0 2px 15px rgba(78, 205, 196, 0.3);
     transition: all 0.4s ease;
+    height: 80px;
+    overflow-wrap: break-word;
 }
 
 /* Buttons */
@@ -196,19 +201,23 @@ button::after {
     .container {
         padding: 28px 20px;
         border-radius: 20px;
+        min-height: 520px;
     }
 
     h1 {
         font-size: 1.5rem;
     }
 
-    #number-display {
+    #top-display {
         font-size: 2.8rem;
         padding: 20px;
         min-height: 80px;
+        height: 120px;
+        font-size: 1.8rem;
     }
 
-    #french-display {
+    #bottom-display {
+        height: 70px;
         font-size: 1.3rem;
         padding: 16px;
     }
@@ -220,4 +229,43 @@ button::after {
     .range-section {
         flex-wrap: wrap;
     }
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.4);
+    box-shadow: none;
+}
+
+.tab::after {
+    display: none;
+}
+
+.tab.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tab:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.6);
 }

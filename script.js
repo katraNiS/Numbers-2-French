@@ -1,11 +1,36 @@
 let randomNum; 
 // declaring the randomNum so we can use it in our script
+let mode = "numberToFrench";
+// declaring this variable so we know which tab we are using
 
 document.getElementById("generate-btn").addEventListener("click", randomNumberGenerator)
 // random number generator btn
 
 document.getElementById("translate-btn").addEventListener("click", translatorNumberToFrench)
 // trasnlate btn
+
+document.getElementById("tab-num-to-french").addEventListener("click", setNumberToFrench)
+document.getElementById("tab-french-to-num").addEventListener("click", setFrenchToNumber)
+// reads the mode 
+
+
+/* these two functions change the tabs between
+numberToFrench and frenchToNumber
+*/
+function setNumberToFrench(){
+    mode = "numberToFrench"
+    document.getElementById("tab-num-to-french").classList.add("active")
+    document.getElementById("tab-french-to-num").classList.remove("active")
+    document.getElementById("top-display").textContent = ""
+    document.getElementById("bottom-display").textContent = ""
+}
+function setFrenchToNumber(){
+    mode = "FrenchToNumber"
+    document.getElementById("tab-french-to-num").classList.add("active")
+    document.getElementById("tab-num-to-french").classList.remove("active")
+    document.getElementById("top-display").textContent = ""
+    document.getElementById("bottom-display").textContent = ""
+}
 
 function numberToFrench(number){
     /* arrays for the numbers in french
@@ -33,6 +58,7 @@ function numberToFrench(number){
             return output
         }
         else if(second_digit == 1){
+            // in french, numbers ending in 1 (21, 31, 41, 51, 61) use "et" before "un"
             const output = tens[first_digit -2] + "-" + "et" + "-" + "un"
             return output
         }
@@ -47,6 +73,7 @@ function numberToFrench(number){
         const first_digit = number - 60
         const second_digit = number % 10
         if(second_digit == 1){
+            // 71 is a special case, it uses "et" like the other numbers ending in 1
             const output = tens[4] + "-" + "et" + "-" + "onze"
             return output
         }
@@ -61,6 +88,7 @@ function numberToFrench(number){
     else if (number >= 80 && number < 100){
         const digit = number - 80
         if (number == 80){
+            // 80 is the only one that gets an "s" at the end (quatre-vingts)
             const output = units[4] + "-" + tens[0] + "s"
             return output
         }
@@ -96,12 +124,16 @@ function numberToFrench(number){
             }
         }
     }
-    else{ 
+    else{                       // for numbers 0-16 we just return the unit directly from the array
         return units[number]
     }
 }
 
-// generates the random number and displays it 
+/* generates a random number within the min-max range
+and displays it on the top display, what we show depends on the mode
+numberToFrench: shows the number on top
+FrenchToNumber: shows the french word on top
+*/
 function randomNumberGenerator(){
     var minNum = parseInt(document.getElementById("min-range").value) 
     var maxNum = parseInt(document.getElementById("max-range").value)
@@ -113,18 +145,32 @@ function randomNumberGenerator(){
     else{
     const range = maxNum - minNum
     randomNum = Math.floor(Math.random() * range) + minNum
-    document.getElementById("number-display").textContent = randomNum
-    document.getElementById("french-display").textContent = ""
+    if(mode==="numberToFrench"){
+        document.getElementById("top-display").textContent = randomNum
+        document.getElementById("bottom-display").textContent = ""
+    }
+    else{
+        document.getElementById("bottom-display").textContent = ""
+        document.getElementById("top-display").textContent = numberToFrench(randomNum)
+    }
     }
 }
 
-// translates the number to french and displays it
+/* reveals the answer on the bottom display
+numberToFrench: shows the french translation
+FrenchToNumber: shows the actual number
+*/
 function translatorNumberToFrench(){
     if(randomNum === undefined){
         alert("Firstly generate a random number!")
     }
     else{
-    const translatedNum = numberToFrench(randomNum)
-    document.getElementById("french-display").textContent = translatedNum
+        if(mode==="numberToFrench"){
+            const translatedNum = numberToFrench(randomNum)
+            document.getElementById("bottom-display").textContent = translatedNum
+        }
+        else{
+            document.getElementById("bottom-display").textContent = randomNum
+        }
     }
 }
